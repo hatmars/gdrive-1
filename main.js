@@ -14,8 +14,11 @@ function createAuthObj(config, token) {
 }
 
 function autoRefreshToken(auth, token) {
-  if (getTokenTimeLeft(token) < 5)
-    common.refreshAccessToken(auth);
+  var minutes = getTokenTimeLeft(token);
+  minutes = max(minutes, 29);
+  setInterval(function() {
+    refreshAccessToken(auth);
+  }, minutes * 60);
 }
 
 function generateAuthUrl(auth, config) {
@@ -59,6 +62,7 @@ function refreshAccessToken(auth) {
     if (err) {
       console.error("[Error] refreshAccessToken, err=" + err);
     } else {
+      auth.setCredentials(token);
       saveTokenToFile(tokens);
     }
   });
