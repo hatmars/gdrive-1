@@ -1,10 +1,11 @@
-##English:
 
 ###How to use:
 
 1. Make sure you have a google account, and you should create a project in [https://console.developers.google.com/](https://console.developers.google.com/).
 2. Enter your project's console homepage, and go into **APIs & auth -> Credentials**, then add a credentials for your project.
-3. using the credentials information to create a **config.json** locally, just like below:
+3. set your **Authorized JavaScript origins**.
+4. set your **Authorized redirect URIs**, this url should be put info config.json with Key REDIRECT_URL.
+5. create a **config.json** locally, just like below:
 
 	```c
 	{
@@ -15,7 +16,7 @@
 	}
 	```
 
-4. run the gettoken.js, which is written for getting the access tokens:
+6. run the gettoken.js, which is written for getting the access tokens:
 
 	```c
 	//gettoken.js
@@ -41,7 +42,7 @@
 	
 	```
 
-5. run the getfileinfo.js, which is written for getting the files info from google drive:
+7. run the getfileinfo.js, which is written for getting the files info from google drive:
 	
 	```c
 	//getfileinfo.js
@@ -57,27 +58,3 @@
 		gdrive.PrintFilesInfo(files);
 	});
 	```
-
-##中文：
-
-###如何使用:
-
-1) CLIENT_ID和CLIENT_SECRET在这个页面获取：
-Google Developers Console -> 项目(要自己创建) -> API和验证 -> 验证
-点击OAuth 2.0 用戶端 ID列表的其中一个用戶端 ID，就能看到用户端密码了
-https://console.developers.google.com/project/custom-altar-95703/apiui/credential
-
-2)在API和验证 -> 验证，设置：
-【已授權的 JavaScript 來源】->【http://localhost】
-【已授權的重新導向 URI】 -> 【http://localhost/oauth2callback】 要和下面的REDIRECT_URL一致
-
-3)执行auth.generateAuthUrl({ scope: SCOPE });
-会返回一个url地址，把这个地址复制到浏览器并打开，可能会弹出一个google授权页面，
-授权后会跳转到一个空页面，此时把这个跳转后的页面的地址复制下来，
-比如【http://localhost/oauth2callback?code=4/W_UGgQX-oJcrvEdgLZHJm2bqQJiW8GCwVdcicTbYpi4#】
-把code=后面的所有字符复制，然后粘贴在控制台，并回车确定
-
-4)程序会自动获取token信息（相当于一个不需要密码的访问钥匙），token是一个字典结构，有3个key：
-access_token, token_type, expiry_date，把三个信息都保存下，以后就不需要执行上面的1、2、3去获取token了，
-只要auth.credentials = oldTokens;即可以访问。
-注意，每次执行1、2、3步骤获取的token都是不一样的。
