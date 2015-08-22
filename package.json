@@ -1,0 +1,24 @@
+{
+  "name": "gdrive",
+  "version": "0.0.1",
+  "author": "Wyman",
+  "description": "Google Driver Automatic Tool",
+  "keywords": "javascript,node",
+  "main": "main.js",
+  "respository": {
+    "type": "git",
+    "url": "https://github.com/voyagingmk/gdrive.git"
+  },
+  "contributors": [{
+    "name": "Wyman",
+    "email": "voyagingmk@gmail.com"
+  }],
+  "engines": {
+    "node": "0.12.x"
+  },
+  "private": false,
+  "dependencies": {
+    "googleapis": "2.0.4",
+    "moment": "2.10.6"
+  }
+}

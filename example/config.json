@@ -1,0 +1,6 @@
+{
+	"CLIENT_ID": "put the client id from apps.googleusercontent.com",
+	"CLIENT_SECRET": "put the client secret",
+	"REDIRECT_URL": "http://localhost/oauth2callback",
+	"SCOPE": "https://www.googleapis.com/auth/drive"
+}
