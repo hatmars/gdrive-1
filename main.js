@@ -5,6 +5,7 @@ var OAuth2 = google.auth.OAuth2;
 var XMLHttpRequest = require("./xmlhttprequest").XMLHttpRequest;
 
 
+
 function createAuthObj(config, token) {
   var auth = new OAuth2(config.CLIENT_ID, config.CLIENT_SECRET, config.REDIRECT_URL);
   if (token)
@@ -32,22 +33,23 @@ function getTokenTimeLeft(token) {
   return moment.duration(expire.diff(new moment())).minutes();
 }
 
-function getToken(auth, code) {
+function getAndSaveToken(auth, code) {
   auth.getToken(code, function(err, tokens) {
     if (err) {
       console.log('[Error] while trying to retrieve access token', err);
     } else {
       console.log('----Congratulation! Your access token is:\n\n', tokens);
-      saveToken(tokens);
+      saveTokenToFile(tokens);
     }
   });
 }
 
-function saveToken(tokens) {
+function saveTokenToFile(tokens) {
   var msg = JSON.stringify(tokens);
   var fd = fs.openSync("token.js", "w+");
   fs.writeSync(fd, "var token = " + msg + ";\nmodule.exports = token;");
   fs.close(fd);
+  console.log("[saveTokenToFile] success.");
 }
 
 function refreshAccessToken(auth) {
@@ -57,7 +59,7 @@ function refreshAccessToken(auth) {
     if (err) {
       console.error("[Error] refreshAccessToken, err=" + err);
     } else {
-      saveToken(tokens);
+      saveTokenToFile(tokens);
     }
   });
 }
@@ -153,8 +155,8 @@ module.exports = {
   autoRefreshToken: autoRefreshToken,
   getTokenTimeLeft: getTokenTimeLeft,
   generateAuthUrl: generateAuthUrl,
-  getToken: getToken,
-  saveToken: saveToken,
+  getAndSaveToken: getAndSaveToken,
+  saveTokenToFile: saveTokenToFile,
   refreshAccessToken: refreshAccessToken,
   retrieveAllFiles: retrieveAllFiles,
   downloadSingleFile: downloadSingleFile,

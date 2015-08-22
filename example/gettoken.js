@@ -15,7 +15,7 @@ var rl = readline.createInterface({
 });
 
 var getAccessToken = function(code) {
-	common.getToken(auth, code);
+	gdrive.getToken(auth, code);
 };
 
 rl.question('\n\n----Enter the code here:\n\n', getAccessToken);
