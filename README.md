@@ -5,6 +5,7 @@
 1. Make sure you have a google account, and you should create a project in [https://console.developers.google.com/](https://console.developers.google.com/).
 2. Enter your project's console homepage, and go into **APIs & auth -> Credentials**, then add a credentials for your project.
 3. using the credentials information to create a **config.json** locally, just like below:
+
 	```c
 	{
 		"CLIENT_ID": "your CLIENT_ID",
@@ -13,14 +14,16 @@
 		"SCOPE": "https://www.googleapis.com/auth/drive"
 	}
 
+
 4. run the test.js, which is written for get the access tokens:
+
 	```c
 	var readline = require('readline');
 	var config = require('./config');
-	var common = require('./common');
+	var common = require('gdrive');
 	
-	var auth = common.createAuthObj(config);
-	var url = common.generateAuthUrl(auth, config);
+	var auth = gdrive.createAuthObj(config);
+	var url = gdrive.generateAuthUrl(auth, config);
 	
 	console.log('----copy the url below, and access it by browser:\n\n' + url);
 	
