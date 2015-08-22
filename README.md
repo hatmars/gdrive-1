@@ -1,3 +1,47 @@
+##English:
+
+###How to use:
+
+1. Make sure you have a google account, and you should create a project in [https://console.developers.google.com/](https://console.developers.google.com/).
+2. Enter your project's console homepage, and go into **APIs & auth -> Credentials**, then add a credentials for your project.
+3. using the credentials information to create a **config.json** locally, just like below:
+	```c
+	{
+		"CLIENT_ID": "your CLIENT_ID",
+		"CLIENT_SECRET": "your CLIENT_ID",
+		"REDIRECT_URL": "http://localhost:80/oauth2callback",
+		"SCOPE": "https://www.googleapis.com/auth/drive"
+	}
+
+4. run the test.js, which is written for get the access tokens:
+	```c
+	var readline = require('readline');
+	var config = require('./config');
+	var common = require('./common');
+	
+	var auth = common.createAuthObj(config);
+	var url = common.generateAuthUrl(auth, config);
+	
+	console.log('----copy the url below, and access it by browser:\n\n' + url);
+	
+	var rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+	
+	var getAccessToken = function(code) {
+		common.getToken(auth, code);
+	};
+	
+	rl.question('\n\n----Enter the code here:\n\n', getAccessToken);
+	
+	```
+
+
+##中文：
+
+###如何使用:
+
 1) CLIENT_ID和CLIENT_SECRET在这个页面获取：
 Google Developers Console -> 项目(要自己创建) -> API和验证 -> 验证
 点击OAuth 2.0 用戶端 ID列表的其中一个用戶端 ID，就能看到用户端密码了
