@@ -108,7 +108,7 @@ function downloadSingleFile(auth, file, callback) {
     xhr.open('GET', file['exportLinks']['text/csv']);
     xhr.setRequestHeader('Authorization', 'Bearer ' + auth.credentials.access_token);
     xhr.onload = function() {
-      callback(xhr.responseText);
+      callback(file, xhr.responseText);
     };
     xhr.onerror = function() {
       callback(null);
@@ -153,6 +153,17 @@ function DownloadFiles(auth, files, download_cb) {
   }
 }
 
+function DownloadFileByID(auth, fileid, download_cb) {
+  var drive = google.drive({
+    version: 'v2',
+    auth: auth
+  });
+  drive.files.get({
+    'fileid': fileid
+  }, function(file) {
+    downloadSingleFile(auth, file, download_cb);
+  });
+}
 
 module.exports = {
   createAuthObj: createAuthObj,
@@ -167,4 +178,5 @@ module.exports = {
   QueryFile: QueryFile, //https://developers.google.com/drive/web/search-parameters
   PrintFilesInfo: PrintFilesInfo,
   DownloadFiles: DownloadFiles,
+  DownloadFileByID: DownloadFileByID,
 };
