@@ -1,7 +1,13 @@
+//refreshtoken.js
+
 var readline = require('readline');
 var config = require('./config');
 var token = require('./token');
-var common = require('./common');
+var gdrive = require('gdrive');
 
-var auth = common.createAuthObj(config, token);
+
+var auth = gdrive.createAuthObj(config, token);
+
+console.log('mimutes left:', gdrive.getTokenTimeLeft(token));
+
 common.refreshAccessToken(auth);

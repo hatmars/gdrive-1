@@ -1,9 +1,11 @@
+//gettoken.js
+
 var readline = require('readline');
 var config = require('./config');
-var common = require('./common');
+var gdrive = require('gdrive');
 
-var auth = common.createAuthObj(config);
-var url = common.generateAuthUrl(auth, config);
+var auth = gdrive.createAuthObj(config);
+var url = gdrive.generateAuthUrl(auth, config);
 
 console.log('----copy the url below, and access it by browser:\n\n' + url);
 

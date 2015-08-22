@@ -15,12 +15,13 @@
 	}
 	```
 
-4. run the test.js, which is written for get the access tokens:
+4. run the gettoken.js, which is written for getting the access tokens:
 
 	```c
+	//gettoken.js
 	var readline = require('readline');
 	var config = require('./config');
-	var common = require('gdrive');
+	var gdrive = require('gdrive');
 	
 	var auth = gdrive.createAuthObj(config);
 	var url = gdrive.generateAuthUrl(auth, config);
@@ -40,6 +41,22 @@
 	
 	```
 
+5. run the getfileinfo.js, which is written for getting the files info from google drive:
+	
+	```c
+	//getfileinfo.js
+	
+	var config = require('./config');
+	var token = require('./token');
+	var gdrive = require('gdrive');
+	
+	query = "title != '' ";
+	var auth = gdrive.createAuthObj(config, token);
+	
+	gdrive.QueryFile(auth, query, function(files) {
+		gdrive.PrintFilesInfo(files);
+	});
+	```
 
 ##中文：
 
