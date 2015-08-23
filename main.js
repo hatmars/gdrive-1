@@ -15,9 +15,10 @@ function createAuthObj(config, token) {
 
 function autoRefreshToken(auth, token) {
   var minutes = getTokenTimeLeft(token);
+  console.log("[autoRefreshToken] getTokenTimeLeft: " + minutes + "m");
   minutes = Math.min(Math.max(minutes - 1, 0.5), 10);
   console.log("[autoRefreshToken] next refresh time: " + minutes + "m");
-  setInterval(function() {
+  setTimeout(function() {
     refreshAccessToken(auth);
   }, minutes * 60 * 1000);
 }
@@ -66,6 +67,7 @@ function refreshAccessToken(auth) {
       console.log("[refreshAccessToken] success, tokens:\n" + JSON.stringify(tokens));
       auth.setCredentials(tokens);
       saveTokenToFile(tokens);
+      autoRefreshToken(auth, tokens);
     }
   });
 }
