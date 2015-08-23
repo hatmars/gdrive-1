@@ -160,7 +160,11 @@ function DownloadFileByID(auth, fileid, download_cb) {
   });
   drive.files.get({
     'fileId': fileid
-  }, function(file) {
+  }, function(err, file) {
+    if (err) {
+      console.log("[DownloadFileByID] err=" + err);
+      return;
+    }
     downloadSingleFile(auth, file, download_cb);
   });
 }
