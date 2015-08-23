@@ -159,7 +159,7 @@ function DownloadFileByID(auth, fileid, download_cb) {
     auth: auth
   });
   drive.files.get({
-    'fileid': fileid
+    'fileId': fileid
   }, function(file) {
     downloadSingleFile(auth, file, download_cb);
   });
