@@ -2,7 +2,7 @@ var fs = require('fs');
 var moment = require('moment');
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
-var XMLHttpRequest = require("./xmlhttprequest").XMLHttpRequest;
+var XMLHttpRequest = require("./XMLHttpRequest").XMLHttpRequest;
 
 
 
