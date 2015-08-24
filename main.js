@@ -173,6 +173,48 @@ function DownloadFileByID(auth, fileid, download_cb) {
   });
 }
 
+function retrieveAllFilesInFolder(drive, folderId, callback) {
+  var result = [];
+  var retrievePageOfChildren = function(err, resp) {
+    if (err) {
+      console.log('[Error] retrievePageOfChildren', err);
+      callback(null);
+      return;
+    }
+    result = result.concat(resp.items);
+    if (resp && resp.nextPageToken) {
+      drive.files.list({
+        'folderId': folderId,
+        'pageToken': resp.nextPageToken,
+      }, retrievePageOfChildren);
+    } else {
+      callback(result);
+    }
+  };
+  drive.children.list({
+    'folderId': folderId
+  }, retrievePageOfChildren);
+
+}
+
+
+function GetFolderFiles(auth, folderId, callback) {
+  var drive = google.drive({
+    version: 'v2',
+    auth: auth
+  });
+  retrieveAllFilesInFolder(drive, folderId, function(files) {
+    if (!files) {
+      console.log('[Error] No files.');
+      callback(null);
+    } else {
+      callback(files);
+    }
+  });
+}
+
+
+
 module.exports = {
   createAuthObj: createAuthObj,
   autoRefreshToken: autoRefreshToken,
@@ -187,4 +229,5 @@ module.exports = {
   PrintFilesInfo: PrintFilesInfo,
   DownloadFiles: DownloadFiles,
   DownloadFileByID: DownloadFileByID,
+  GetFolderFiles: GetFolderFiles,
 };
