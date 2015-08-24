@@ -157,18 +157,24 @@ function DownloadFiles(auth, files, download_cb) {
   }
 }
 
-function DownloadFileByID(auth, fileid, download_cb) {
+function GetFileByID(auth, fileId, callback) {
   var drive = google.drive({
     version: 'v2',
     auth: auth
   });
   drive.files.get({
-    'fileId': fileid
+    'fileId': fileId
   }, function(err, file) {
     if (err) {
       console.log("[DownloadFileByID] err=" + err);
-      return;
+      callback(null);
     }
+    callback(file);
+  });
+}
+
+function DownloadFileByID(auth, fileId, download_cb) {
+  GetFileByID(auth, fileId, function(file) {
     downloadSingleFile(auth, file, download_cb);
   });
 }
@@ -228,6 +234,7 @@ module.exports = {
   QueryFile: QueryFile, //https://developers.google.com/drive/web/search-parameters
   PrintFilesInfo: PrintFilesInfo,
   DownloadFiles: DownloadFiles,
+  GetFileByID: GetFileByID,
   DownloadFileByID: DownloadFileByID,
   GetFolderFiles: GetFolderFiles,
 };
