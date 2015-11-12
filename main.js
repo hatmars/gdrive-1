@@ -166,7 +166,7 @@ function GetFileByID(auth, fileId, callback) {
     'fileId': fileId
   }, function(err, file) {
     if (err) {
-      console.log("[DownloadFileByID] err=" + err);
+      console.log("[GetFileByID] err=" + err);
       callback(null);
     }
     callback(file);
