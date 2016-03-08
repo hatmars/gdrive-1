@@ -16,7 +16,7 @@ function createAuthObj(config, token) {
 function autoRefreshToken(auth, token) {
   var minutes = getTokenTimeLeft(token);
   console.log("[autoRefreshToken] getTokenTimeLeft: " + minutes + "m");
-  minutes = Math.min(Math.max(minutes - 1, 0.5), 10);
+  minutes = Math.min(Math.max(minutes - 1, 0.5), 50);
   console.log("[autoRefreshToken] next refresh time: " + minutes + "m");
   setTimeout(function() {
     refreshAccessToken(auth);
